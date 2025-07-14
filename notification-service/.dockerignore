@@ -1,0 +1,7 @@
+*.git
+*.swp
+*.swo
+*.DS_Store
+*.log
+vendor/
+node_modules/ 

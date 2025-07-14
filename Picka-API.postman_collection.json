@@ -1,0 +1,270 @@
+{
+  "info": {
+    "_postman_id": "picka-api-collection-001",
+    "name": "Picka API Gateway Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth Service",
+      "item": [
+        {
+          "name": "Signup",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"phone\": \"1234567890\",\n  \"vehicle\": \"bike\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost/auth/riders/signup",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["auth", "riders", "signup"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"1234567890\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost/auth/riders/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["auth", "riders", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Vendor Service",
+      "item": [
+        {
+          "name": "Register Vendor",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Vendor 1\",\n  \"email\": \"vendor1@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost/vendor/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["vendor", "register"]
+            }
+          }
+        },
+        {
+          "name": "Get Vendor Profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost/vendor/profile",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["vendor", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Create Vendor Profile",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": \"vendor-user-uuid\",\n  \"business_name\": \"Acme Corp\",\n  \"business_address\": \"123 Main St\",\n  \"logo_url\": \"https://example.com/logo.png\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost/vendor/profile",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["vendor", "profile"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Shipment Service",
+      "item": [
+        {
+          "name": "Create Shipment",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vendor_id\": \"vendor-uuid\",\n  \"pickup_address\": \"123 Main St\",\n  \"delivery_address\": \"456 Elm St\",\n  \"product_id\": \"product-uuid\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost/shipment/shipments",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["shipment", "shipments"]
+            }
+          }
+        },
+        {
+          "name": "List Shipments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost/shipment/shipments",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["shipment", "shipments"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Rider Service",
+      "item": [
+        {
+          "name": "Rider Signup",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Rider 1\",\n  \"phone\": \"9876543210\",\n  \"vehicle\": \"bike\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost/rider/riders/signup",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["rider", "riders", "signup"]
+            }
+          }
+        },
+        {
+          "name": "Rider Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"9876543210\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost/rider/riders/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["rider", "riders", "login"]
+            }
+          }
+        },
+        {
+          "name": "Create Rider Profile",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": \"rider-user-uuid\",\n  \"phone\": \"9876543210\",\n  \"vehicle_type\": \"bike\",\n  \"status\": \"offline\",\n  \"location\": \"POINT(7.4 3.9)\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost/rider/profile",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["rider", "profile"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notification Service",
+      "item": [
+        {
+          "name": "Notification Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost/notification/healthz",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["notification", "healthz"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin (Auth Service)",
+      "item": [
+        {
+          "name": "Activate/Deactivate User",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{admin_jwt}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "http://localhost/admin/users/{{user_id}}/status",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["admin", "users", "{{user_id}}", "status"]
+            }
+          }
+        },
+        {
+          "name": "Reset User Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{admin_jwt}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"new_password\": \"newSecret123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost/admin/users/{{user_id}}/reset-password",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["admin", "users", "{{user_id}}", "reset-password"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+} 

@@ -1,0 +1,152 @@
+version: '3.8'
+services:
+  auth-db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: authuser
+      POSTGRES_PASSWORD: authpassword
+      POSTGRES_DB: authdb
+    ports:
+      - "5433:5432"
+    volumes:
+      - auth-db-data:/var/lib/postgresql/data
+
+  auth-service:
+    build: ./auth-service
+    depends_on:
+      - auth-db
+    environment:
+      DB_HOST: auth-db
+      DB_PORT: 5432
+      DB_USER: authuser
+      DB_PASSWORD: authpassword
+      DB_NAME: authdb
+      JWT_SECRET: supersecretjwt
+    ports:
+      - "8081:8081"
+    restart: always
+    command: ["./auth-service"]
+
+  shipment-db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: shipmentuser
+      POSTGRES_PASSWORD: shipmentpassword
+      POSTGRES_DB: shipmentdb
+    ports:
+      - "5434:5432"
+    volumes:
+      - shipment-db-data:/var/lib/postgresql/data
+
+  shipment-service:
+    build: ./shipment-service
+    depends_on:
+      - shipment-db
+    environment:
+      DB_HOST: shipment-db
+      DB_PORT: 5432
+      DB_USER: shipmentuser
+      DB_PASSWORD: shipmentpassword
+      DB_NAME: shipmentdb
+      JWT_SECRET: supersecretjwt
+    ports:
+      - "8082:8082"
+    restart: always
+    command: ["./shipment-service"]
+
+  vendor-db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: vendoruser
+      POSTGRES_PASSWORD: vendorpassword
+      POSTGRES_DB: vendordb
+    ports:
+      - "5435:5432"
+    volumes:
+      - vendor-db-data:/var/lib/postgresql/data
+
+  vendor-service:
+    build: ./vendor-service
+    depends_on:
+      - vendor-db
+    environment:
+      DB_HOST: vendor-db
+      DB_PORT: 5432
+      DB_USER: vendoruser
+      DB_PASSWORD: vendorpassword
+      DB_NAME: vendordb
+      JWT_SECRET: supersecretjwt
+    ports:
+      - "8083:8083"
+    restart: always
+    command: ["./vendor-service"]
+
+  rider-db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: rideruser
+      POSTGRES_PASSWORD: riderpassword
+      POSTGRES_DB: riderdb
+    ports:
+      - "5436:5432"
+    volumes:
+      - rider-db-data:/var/lib/postgresql/data
+
+  rider-service:
+    build: ./rider-service
+    depends_on:
+      - rider-db
+    environment:
+      DB_HOST: rider-db
+      DB_PORT: 5432
+      DB_USER: rideruser
+      DB_PASSWORD: riderpassword
+      DB_NAME: riderdb
+      JWT_SECRET: supersecretjwt
+    ports:
+      - "8084:8084"
+    restart: always
+    command: ["./rider-service"]
+
+  nats:
+    image: nats:2.10-alpine
+    ports:
+      - "4222:4222"
+    restart: always
+
+  notification-service:
+    build:
+      context: ./notification-service
+    depends_on:
+      - nats
+    environment:
+      - NATS_URL=nats://nats:4222
+    networks:
+      - picka
+    restart: unless-stopped
+    ports:
+      - "8085:8080"
+
+  picka-gateway:
+    build:
+      context: ./picka-gateway
+    ports:
+      - "80:80"
+    depends_on:
+      - auth-service
+      - vendor-service
+      - shipment-service
+      - rider-service
+      - notification-service
+    networks:
+      - picka
+
+volumes:
+  auth-db-data:
+  shipment-db-data:
+  vendor-db-data:
+  rider-db-data: 
